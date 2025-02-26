@@ -1,34 +1,33 @@
+// Materia: Programación I, Paralelo 3
+// Autor: Juan Jose Condori Yucra
+// Fecha creación: 21/02/2025
+// Número de ejercicio: 4
+/* Problema planteado:Simular el lanzamiento de una moneda n veces y determinar el porcentaje de
+caras y el porcentaje de cruz*/
 #include <iostream>
-#include <time.h>
-#include <stdlib.h>
+
 using namespace std;
 
-main (){
-    srand(time(NULL));
+int main() {
     int n;
-    int suma_cara=0;
-    int suma_sello=0;
-    cout << "Ingrese el nÃºmero de veces que se lanzara la moneda: ";
+    cout << "Ingrese el numero de lanzamientos de la moneda: ";
     cin >> n;
-    int veces;
-    for (int i = 1; i <=n ; i++)
-    {
-        veces=rand()%2+1;
-        
-        if (veces==1)
-        {
-            suma_cara++;
-            
+    int caras = 0, cruz = 0;
+    for (int i = 0; i < n; i++) {
+        int resultado;
+        cout << "Ingrese 0 para cruz o 1 para cara (Lanzamiento " << i + 1 << "): ";
+        cin >> resultado;
+        if (resultado == 1) caras++;
+        else if (resultado == 0) cruz++;
+        else {
+            cout << "Entrada invalida. Solo se permite 0 o 1." << endl;
+            i--;
         }
-        else
-        {
-            suma_sello++;
-        }
-        float porcentaje= (suma_cara*100)/n;
-        cout << "El nÃºmero de veces que cayÃ³ cara es: " << porcentaje << endl;
-        porcentaje = (suma_sello*100)/n;
-        cout << "El nÃºmero de veces que cayÃ³ sello es: " << porcentaje << endl;
     }
-    
-
+    float porcentajeCaras = (caras * 100.0) / n;
+    float porcentajeCruz = (cruz * 100.0) / n;
+    cout << "\nResultados:" << endl;
+    cout << "Caras: " << caras << " veces (" << porcentajeCaras << "%)" << endl;
+    cout << "Cruz: " << cruz << " veces (" << porcentajeCruz << "%)" << endl;
+    return 0;
 }

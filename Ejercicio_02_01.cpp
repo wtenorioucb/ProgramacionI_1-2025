@@ -1,28 +1,29 @@
+// Materia: Programación I, Paralelo 3
+// Autor: Juan Jose Condori Yucra
+// Fecha creación: 25/02/2025
+// Número de ejercicio: 1
+// Problema planteado: Obtener la suma de la serie: 4 + 6 + 9 + 13 + 19 + 28 + 42 +……. Para n términos
 #include <iostream>
 using namespace std;
-
-int main () {
-    
+int main() {
     int n;
-    cout << "Ingrese el nÃºmero de tÃ©rminos: ";
+    cout << "Ingrese la cantidad de terminos: ";
     cin >> n;
-
-    int suma = 0;
-    int termino_anterior = 3;
-    suma = suma + termino_anterior;
-
-    if (n >= 1) {
-        suma = 4; // El primer tÃ©rmino es 4
+    if (n <= 0) {
+        cout << "El numero de términos debe ser mayor a 0." << endl;
+        return 1;
     }
-
-    for (int i = 1; i<= n; ++i) {
-        int termino_nuevo = termino_anterior*3/2 ;
-        cout << termino_nuevo;
-        suma += termino_nuevo;
-        termino_anterior = termino_nuevo;
+    int termino = 4, suma = 4;
+    int a = 2, b = 3;
+    cout << "Serie: " << termino << " ";
+    for (int i = 1; i < n; i++) {
+        termino += a;
+        suma += termino;
+        cout << termino << " ";
+        int nuevaDiferencia = a + b;
+        a = b;
+        b = nuevaDiferencia;
     }
-
-    cout << " La suma de los primeros " << n << " tÃ©rminos de la serie es: " << suma << endl;
-
+    cout << "\nSuma de la serie: " << suma << endl;
     return 0;
 }
