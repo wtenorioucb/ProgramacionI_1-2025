@@ -1,33 +1,62 @@
-// Materia: Programación I, Paralelo 3 
-// Autor: Lopez Tejerina Christian R 
-// Fecha creación: 05/03/2025 
-// Número de ejercicio: 14 
-// Problema planteado: cajero en funciones
 #include <iostream>
+
 using namespace std;
 
-double retirarDinero (double, double);
+bool VerificarSaldo(int montoRetirar, int saldo);
+bool VerificarMontoMultiplo10(int montoRetirar);
+int ActualizarSaldo(int montoRetirar, int saldo);
 
-int main () {
-    double cantidad, saldo = 1000.0;
-    cout << "Ingrese el monto a retirar: " << endl;
-    cin >> cantidad;
-    saldo = retirarDinero(saldo, cantidad);
-    cout << "Su saldo actual es de: " << saldo << endl;
+int main()
+{
+    int montoRetirar = 0;
+    int saldo = 1000;
+
+    do
+    {
+        system("cls");
+        cout << "Ingrese el monto a retirar: ";
+        cin >> montoRetirar;
+        if (VerificarSaldo(montoRetirar, saldo))
+        {
+            if (VerificarMontoMultiplo10(montoRetirar))
+            {
+                saldo = ActualizarSaldo(montoRetirar, saldo);
+                cout << "Su saldo final es: " << saldo;
+            }
+            else
+            {
+                cout << "Monto invalido!!";
+                system("pause");
+            }
+        }
+        else
+        {
+            cout << "NO TIENES PLATA!!!";
+            system("pause");
+        }
+    } while (!(VerificarSaldo(montoRetirar, saldo) && VerificarMontoMultiplo10(montoRetirar)));
+    return 0;
 }
 
-double retirarDinero (double saldo, double cantidad) {
-    if(saldo >= cantidad){
-        int aux = cantidad * 1;
-        if(aux % 10 == 0) {
-            cout << "Retiro exitoso" << endl;
-            return saldo - cantidad;
-        } else {
-            cout << "Monto no valido" << endl;
-        }
-    } else {
-        cout << "Saldo insuficiente" << endl;
-    }
+bool VerificarSaldo(int montoRetirar, int saldo)
+{
+    if (montoRetirar <= saldo)
+        return true;
+    else
+        return false;
+}
 
-    return saldo;
+bool VerificarMontoMultiplo10(int montoRetirar)
+{
+    if (montoRetirar % 10 == 0)
+        return true;
+    else
+        return false;
+}
+
+int ActualizarSaldo(int montoRetirar, int saldo)
+{
+    int saldoActualizado = 0;
+    saldoActualizado = saldo - montoRetirar;
+    return saldoActualizado;
 }
