@@ -1,30 +1,28 @@
-// Materia: Programación I, Paralelo 3 
-// Autor: Lopez Tejerina Christian R 
-// Fecha creación: 12/03/25
-// Número de ejercicio: 2 
-// Problema planteado: calcular volumen 
-
-
+// Materia: Programación I, Paralelo 3
+// Autor: Juan Jose Condori Yucra
+// Fecha creación: 10/03/2025
+// Número de ejercicio: 2
+/* Problema planteado:Crea una función llamada calcularVolumen que reciba un parámetro radio y un
+parámetro altura. El parámetro altura debe tener un valor por defecto de 10.
+Calcula y devuelve el volumen de un cilindro (usando la fórmula: V=π×r2×hV)*/
 #include <iostream>
+#include <cmath>  // Para M_PI
 using namespace std;
 
-double calcularvolumen (int radio);
-int altura=10;
-
-int main (){ 
-    int radio, altura;
-    cout << "introduzca un radio ";
-    cin >> radio;
-    //cout << "introduzca una altura ";
-    //cin >> altura;
-    //calcularvolumen(radio, altura);
-    cout << " el vol es " << calcularvolumen(radio);
-    return 0;
-
+// Función para calcular el volumen de un cilindro
+float calcularVolumen(int radio, int altura = 10) {
+    return M_PI * radio * radio * altura;
 }
 
+int main() {
+    int radio;
 
-double calcularvolumen (int radio){
-    double volumen = (3.141615) * (radio * radio) * altura;
-    return volumen;
+    cout << "Introduzca el radio para calcular el volumen: ";
+    cin >> radio;
+
+    float volumen = calcularVolumen(radio);  // Llamada correcta a la función
+
+    cout << "El volumen es: " << volumen << endl;
+
+    return 0;
 }

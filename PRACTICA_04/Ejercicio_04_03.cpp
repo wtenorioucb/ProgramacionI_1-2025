@@ -1,28 +1,30 @@
-// Materia: ProgramaciÃ³n I, Paralelo 3 
-// Autor: Lopez Tejerina Christian R 
-// Fecha creaciÃ³n: 12/03/25
-// NÃºmero de ejercicio: 3 
-// Problema planteado: modificar valores y referencia
-
+// Materia: Programación I, Paralelo 3
+// Autor: Juan Jose Condori Yucra
+// Fecha creación: 10/03/2025
+// Número de ejercicio: 3
+/* Problema planteado:Crea una función llamada modificarValores que reciba dos parámetros: un entero
+por valor y un entero por referencia. La función debe multiplicar el valor por 2 (para
+el valor pasado por valor) y cambiar el valor por referencia (sumando 10).*/
 #include <iostream>
 using namespace std;
-
-int modificarValores(int, int&);
-
-int main () {
-    int n1, n2, n3;
-    cout << "ingrese 2 numeros: " << endl;
-    cin >> n1 >> n2;
-    cout << " " << n1 << "  " << n2 << endl;
-    n3 = modificarValores(n1, n2); // para mostrar el valor de la funcion, se declara una 3 variable para guardar su valor
-    cout << " " << n3 << "  " << n2 << endl; // el valor por referencia 
-    return 0;
+// Función para modificar valores
+void modificarValores(int valor, int &referencia) {
+    valor *= 2;        // Multiplica por 2 el valor pasado por valor
+    referencia += 10;  // Suma 10 al valor pasado por referencia
 }
-
-int modificarValores(int num1, int &num2){ //esta funcion realiza operaciones con la variable por referencia y por valor
-    int aux = 0;
-    aux = num2; 
-    num1 = num1 *2;
-    num2 = aux + 10;
-    return num1;
+int main() {
+    int numero1, numero2;
+    // Pedir al usuario los valores
+    cout << "Ingrese un numero (por valor): ";
+    cin >> numero1;
+    cout << "Ingrese otro numero (por referencia): ";
+    cin >> numero2;
+    cout << "\nAntes de llamar a la función:" << endl;
+    cout << "numero1 (por valor): " << numero1 << endl;
+    cout << "numero2 (por referencia): " << numero2 << endl;
+    modificarValores(numero1, numero2);
+    cout << "\nDespués de llamar a la función:" << endl;
+    cout << "numero1 (por valor, sin cambios fuera de la funcion): " << numero1 << endl;
+    cout << "numero2 (por referencia, modificado dentro de la funcion): " << numero2 << endl;
+    return 0;
 }

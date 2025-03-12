@@ -1,50 +1,38 @@
-// Materia: ProgramaciÃ³n I, Paralelo 3 
-// Autor: Lopez Tejerina Christian R 
-// Fecha creaciÃ³n: 12/03/25
-// NÃºmero de ejercicio: 4 
-// Problema planteado: celsius a farenjeit
-
-
+// Materia: Programación I, Paralelo 3
+// Autor: Juan Jose Condori Yucra
+// Fecha creación: 10/03/2025
+// Número de ejercicio: 4
+/* Problema planteado: Crea dos funciones:
+Una función llamada convertirCelsiusAFahrenheit que reciba grados Celsius y
+devuelva la conversión a Fahrenheit.
+Una función llamada mayorTemperatura que reciba dos valores de temperatura y
+devuelva el valor mayor.*/
 #include <iostream>
 using namespace std;
-
-double convertircelsius (int cel);
-double mayor (double temp1 , double temp2);
-
-int main (){
-    int celsius1;
-    int celsius2;
-    double far1;
-    double far2;
-
-    cout << "ingrese los grados centigrados ";
+// Función para convertir Celsius a Fahrenheit
+double convertirCelsiusAFahrenheit(double celsius) {
+    return (celsius * 9 / 5) + 32;
+}
+// Función para determinar la mayor temperatura
+double mayorTemperatura(double temp1, double temp2) {
+    return (temp1 > temp2) ? temp1 : temp2;
+}
+int main() {
+    double celsius1, celsius2;
+    // Pedir al usuario dos temperaturas en Celsius
+    cout << "Ingrese la primera temperatura en Celsius: ";
     cin >> celsius1;
-    cout << "ingrese los grados centigrados ";
+    cout << "Ingrese la segunda temperatura en Celsius: ";
     cin >> celsius2;
-
-    far1= convertircelsius(celsius1);
-    far2= convertircelsius(celsius2);
-    cout << "la mayor temperatura es " << mayor(far1, far2);
-
+    // Convertir ambas temperaturas a Fahrenheit
+    double fahrenheit1 = convertirCelsiusAFahrenheit(celsius1);
+    double fahrenheit2 = convertirCelsiusAFahrenheit(celsius2);
+    // Mostrar las conversiones
+    cout << "Temperatura 1 en Fahrenheit: " << fahrenheit1 << endl;
+    cout << "Temperatura 2 en Fahrenheit: " << fahrenheit2 << endl;
+    // Determinar la mayor temperatura en Fahrenheit
+    double mayor = mayorTemperatura(fahrenheit1, fahrenheit2);
+    cout << "La mayor temperatura en Fahrenheit es: " << mayor << endl;
+    return 0;
 }
 
-double convertircelsius (int cel){ //esta funcion convierte a farenheit
-    double farenheit=0;
-    farenheit= (cel * (1.8)) + 32;
-    cout << "las temperaturas en farenheit son "<< farenheit<<endl;
-    return farenheit;
-}
-
-double mayor (double temp1, double temp2){ //esta funcion compara ambos valores (en f) y devuelve el mayor
-    double aux;
-    //cout << temp1 << endl << temp2;
-    if (temp1>temp2)
-    {
-        aux = temp1;
-        
-    }
-    else {
-        aux = temp2;
-    }
-    return aux;
-}
