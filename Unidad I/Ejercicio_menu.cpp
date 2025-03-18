@@ -5,9 +5,9 @@ using namespace std;
 int main()
 {
     int opcion;
-    int opcion_submenu1;
+    int opcion_submenu;
     opcion = 0;
-    opcion_submenu1 = 0;
+    opcion_submenu = 0;
     do
     {
         system("cls");
@@ -33,25 +33,25 @@ int main()
                     cout << "\t2. Opcion 1.2" << endl;
                     cout << "\t0. SALIR" << endl;
                     cout << "\n\tIngrese la opcion: ";
-                    cin >> opcion_submenu1;
-                    switch (opcion_submenu1)
+                    cin >> opcion_submenu;
+                    switch (opcion_submenu)
                     {
-                        case 0:
-                            break;
-                        case 1:
-                            cout << "Usted ha ingresado a la opcion 1.1" << endl;
-                            system("pause");
-                            break;
-                        case 2:
-                            cout << "Usted ha ingresado a la opcion 1.2" << endl;
-                            system("pause");
-                            break;
-                        default:
-                            cout << "No existe la opcion ingresada." << endl;
-                            system("pause");
-                            break;
+                    case 0:
+                        break;
+                    case 1:
+                        cout << "Usted ha ingresado a la opcion 1.1" << endl;
+                        system("pause");
+                        break;
+                    case 2:
+                        cout << "Usted ha ingresado a la opcion 1.2" << endl;
+                        system("pause");
+                        break;
+                    default:
+                        cout << "No existe la opcion ingresada." << endl;
+                        system("pause");
+                        break;
                     }
-                } while (opcion_submenu1 != 0);    
+                } while (opcion_submenu != 0);
                 break;
             case 2:
                 cout << "Usted ha ingresado a la opcion 2" << endl;
