@@ -9,3 +9,8 @@ int main()
     cout << "Hola Mundo";
     return 0;
 }
+
+void DesplegarValorNumerico(int numero)
+{
+    cout << "El valor es: " << numero;
+}

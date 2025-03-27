@@ -8,15 +8,15 @@ int main()
     float resultado = 0;
     float nroAleatorios;
     float vectorDado[6] = {0.0,0.0,0.0,0.0,0.0,0.0};
-    cout << "¿Cuantos valores aleatorios desea generar?: ";
+    cout << "ï¿½Cuantos valores aleatorios desea generar?: ";
     cin >> nroAleatorios;
-    cout << "En que valor INICIARA el número aleatorio: ";
+    cout << "En que valor INICIARA el nï¿½mero aleatorio: ";
     cin >> valorInicial;
-    cout << "En que valor FINALIZARA el número aleatorio: ";
+    cout << "En que valor FINALIZARA el nï¿½mero aleatorio: ";
     cin >> valorFinal;
     for (int i = 0; i < nroAleatorios; i++)
     {
-        nroAleatorio = valorInicial + rand() % (( valorFinal + valorInicial) - valorInicial);
+        nroAleatorio = valorInicial + rand() % (( valorFinal + 1) - valorInicial);
         switch (nroAleatorio)
         {
             case 1:
@@ -41,7 +41,7 @@ int main()
     }
     for (int i = 0; i < 6; i++)
     {
-        cout << "La cara con el número " << i + 1 << " ha salido " << vectorDado[i] << " veces." << endl;
+        cout << "La cara con el nï¿½mero " << i + 1 << " ha salido " << vectorDado[i] << " veces." << endl;
         resultado = (vectorDado[i] * 100) / nroAleatorios;
         cout << "Su frecuencia es: " << resultado << endl;
     }
