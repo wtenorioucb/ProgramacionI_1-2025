@@ -1,0 +1,5 @@
+Willy;Tenorio;Programacion I;77
+Willy;Tenorio;Progra;22
+willy;tenorio;sdc;12
+sd;sdc;22;22
+sdc;sdc;sdc;23
