@@ -1,17 +1,23 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 int main()
 {
-    string nombre("Willy Edwin");
-    string apellido = "Tenorio Palza";
-    string aLot(10, 's'); // Repite 10 veces la letra s
-    cout << "Ingrese su nombre: ";
-    cin >> nombre;
-    cout << "Nombre: " << nombre << endl;
-    cout << "Apellido: " << apellido << endl;
-    cout << aLot << endl;
+    bool encontrado = false;
+    vector<string> names = {"Juan", "Pedro", "Maria", "Jose", "Ana"};
+    for (int i = 0; i < names.size(); i++)
+    {
+        if (names[i] == "Maria")
+        {
+            encontrado = true;
+        }
+    }
+    if (encontrado)
+    {
+        
+    }
     return 0;
 }
