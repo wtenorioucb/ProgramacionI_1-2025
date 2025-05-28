@@ -14,21 +14,19 @@ void leerArchivoBinario(string, Agenda);
 
 int main()
 {
-    string nombreArchivo;
+    string nombreArchivo = "ArchivoAgenda" ;
     Agenda _agenda;
-    cout << "Ingrese el nombre del archivo: ";
-    getline(cin, nombreArchivo);
-
+    
     _agenda = {"Willy Tenorio", 40};
-    escribirArchivoBinario(nombreArchivo, _agenda);
-    //leerArchivoBinario(nombreArchivo, _agenda);
+    //escribirArchivoBinario(nombreArchivo, _agenda);
+    leerArchivoBinario(nombreArchivo, _agenda);
     return 0;
 }
 
 void escribirArchivoBinario(string nombreArchivo, Agenda _agenda)
 {
     ofstream archivoEscritura;
-    archivoEscritura.open(nombreArchivo + ".bin",ios::out | ios::binary);
+    archivoEscritura.open(nombreArchivo + ".bin",ios::app | ios::binary);
     archivoEscritura.write((char*)&_agenda, sizeof(Agenda));
     archivoEscritura.close();
 }
@@ -36,7 +34,7 @@ void escribirArchivoBinario(string nombreArchivo, Agenda _agenda)
 void leerArchivoBinario(string nombreArchivo, Agenda _agenda)
 {
     ifstream archivoLectura;
-    archivoLectura.open(nombreArchivo + ".bin",ios::in | ios::binary);
+    archivoLectura.open(nombreArchivo + ".bin",ios::binary);
     while (archivoLectura.read((char*)&_agenda, sizeof(Agenda)))
     {
         cout << "Nombre: " << _agenda.nombre << endl;
