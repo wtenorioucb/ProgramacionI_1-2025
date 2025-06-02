@@ -12,23 +12,26 @@ struct Producto
     float precio;
 };
 
-void MenuOpciones(string);
+void MenuOpciones(string, string);
 void NuevoProducto(string);
 void MostrarProductos(string);
 void BuscaProductoPorCodigo(string, int);
 void ModificarProductoPorCodigo(string, int);
 void EliminarProductoPorCodigo(string, int);
-void LeerArchivoTexto(string);
+int LeerArchivoTextoSumarVentas(string, int);
+int EncontrarCantidadLineaTexto(string, int);
+void GenerarReporteVentas(string, string);
+void LeerArchivoVentas(string);
 
 int main()
 {
     string NombreArchivoProductos = "Productos.bin";
-    string NombreArchivoVentas = "Productos.bin";
-
+    string NombreArchivoVentas = "Ventas.txt";
+    MenuOpciones(NombreArchivoProductos, NombreArchivoVentas);
     return 0;
 }
 
-void MenuOpciones(string NombreArchivo)
+void MenuOpciones(string NombreArchivoProductos, string NombreArchivoVentas)
 {
     int opcion;
     int CodigoBuscar;
@@ -38,11 +41,13 @@ void MenuOpciones(string NombreArchivo)
         system("cls");
         cout << "MENU DE OPCIONES" << endl;
         cout << "================" << endl;
-        cout << "\t1. Ingresar Contacto" << endl;
-        cout << "\t2. Listado de Contactos" << endl;
-        cout << "\t3. Buscar Contacto" << endl;
-        cout << "\t4. Modificar Contacto" << endl;
-        cout << "\t5. Eliminar Contacto" << endl;
+        cout << "\t1. Ingresar Producto" << endl;
+        cout << "\t2. Listado de Productos" << endl;
+        cout << "\t3. Buscar Producto" << endl;
+        cout << "\t4. Modificar Producto" << endl;
+        cout << "\t5. Eliminar Producto" << endl;
+        cout << "\t6. Reporte de Ventas" << endl;
+        cout << "\t7. Leer Archivo de Ventas" << endl;
         cout << "\t0. SALIR" << endl;
         cout << "\n\tIngrese la opcion: ";
         cin >> opcion;
@@ -53,33 +58,43 @@ void MenuOpciones(string NombreArchivo)
                 break;
             case 1:
                 system("cls");
-                NuevoProducto(NombreArchivo);
+                NuevoProducto(NombreArchivoProductos);
                 system("pause");
                 break;  
             case 2:
                 system("cls");
-                MostrarProductos(NombreArchivo);
+                MostrarProductos(NombreArchivoProductos);
                 system("pause");
                 break;
             case 3:
                 system("cls");
                 cout << "Ingrese el codigo del producto a buscar: ";
                 cin >> CodigoBuscar;
-                BuscaProductoPorCodigo(NombreArchivo, CodigoBuscar);
+                BuscaProductoPorCodigo(NombreArchivoProductos, CodigoBuscar);
                 system("pause");
                 break;
             case 4:
                 system("cls");
                 cout << "Ingrese el codigo del producto a modificar: ";
                 cin >> CodigoBuscar;
-                ModificarProductoPorCodigo(NombreArchivo, CodigoBuscar);
+                ModificarProductoPorCodigo(NombreArchivoProductos, CodigoBuscar);
                 system("pause");
                 break;
             case 5:
                 system("cls");
                 cout << "Ingrese el codigo del producto a eliminar: ";
                 cin >> CodigoBuscar;
-                EliminarProductoPorCodigo(NombreArchivo, CodigoBuscar);
+                EliminarProductoPorCodigo(NombreArchivoProductos, CodigoBuscar);
+                system("pause");
+                break;
+            case 6:
+                system("cls");
+                GenerarReporteVentas(NombreArchivoProductos, NombreArchivoVentas);
+                system("pause");
+                break;
+            case 7:
+                system("cls");
+                LeerArchivoVentas(NombreArchivoVentas);
                 system("pause");
                 break;
             default:
@@ -131,14 +146,15 @@ void MostrarProductos(string NombreArchivo)
     else
     {
         cout << "LISTADO DE PRODUCTOS" << endl;
-        cout << "==============================================================" << endl;
+        cout << "====================" << endl << endl;
         cout << "CODIGO\tNOMBRE\t\tCANTIDAD\tPRECIO" << endl;
+        cout << "--------------------------------------------------------------" << endl;
         while (archivo.read((char *)&producto, sizeof(producto)))
         {
             cout << producto.codigo << "\t" << producto.nombre << "\t" << producto.cantidad << "\t\t" << producto.precio << endl;
             contador++;
         }
-        cout << "==============================================================" << endl;
+        cout << endl;
         archivo.close();
         cout << "Se leyeron " << contador << " registros." << endl;
     }
@@ -260,9 +276,59 @@ void EliminarProductoPorCodigo(string NombreArchivo, int CodigoBuscar)
     }
 }
 
-void LeerArchivoTexto(string NombreArchivo)
+void GenerarReporteVentas(string NombreArchivoProductos, string NombreArchivoVentas)
 {
-    ifstream archivo(NombreArchivo);
+    ifstream archivo;
+    Producto producto;
+    int contador = 0;
+    int ventas;
+
+    archivo.open(NombreArchivoProductos, ios::binary);
+    if (archivo.fail())
+    {
+        cout << "No se pudo abrir el archivo." << endl;
+    }
+    else
+    {
+        cout << "REPORTE DE VENTAS DE PRODUCTOS" << endl;
+        cout << endl;
+        cout << "CODIGO\tNOMBRE\t\tCANTIDAD\tPRECIO\tVENDIDAD\tTOTAL" << endl;
+        cout << "----------------------------------------------------------------------" << endl;
+        while (archivo.read((char *)&producto, sizeof(producto)))
+        {
+            ventas = LeerArchivoTextoSumarVentas(NombreArchivoVentas, producto.codigo);
+            cout << producto.codigo << "\t" << producto.nombre << "\t" << producto.cantidad << "\t\t" << 
+                producto.precio << "\t" << ventas << "\t\t" << producto.precio * ventas << endl; 
+        }
+        cout << endl;
+        archivo.close();
+    }
+}
+
+int LeerArchivoTextoSumarVentas(string NombreArchivoVentas, int CodigoBuscar)
+{
+    ifstream archivo(NombreArchivoVentas);
+    int cantidad = 0;
+    if (archivo.is_open())
+    {
+        string linea;
+        while (getline(archivo, linea))
+        {
+            cantidad += EncontrarCantidadLineaTexto(linea, CodigoBuscar);
+        }
+        archivo.close();
+        return cantidad;
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+void LeerArchivoVentas(string NombreArchivoVentas)
+{
+    ifstream archivo(NombreArchivoVentas);
+    int cantidad = 0;
     if (archivo.is_open())
     {
         string linea;
@@ -274,28 +340,28 @@ void LeerArchivoTexto(string NombreArchivo)
     }
     else
     {
-        cout << "No se pudo abrir el archivo." << endl;
+        cout << "No se pudo abrir el archivo de ventas." << endl;
     }
 }
 
-int EncontrarCantidadLineaTexto(string lineaTexto, string CodigoBuscar)
+int EncontrarCantidadLineaTexto(string lineaTexto, int CodigoBuscar)
 {
     int pos = 0;
     string token;
     int cantidadTotal = 0;
     int contador = 1;
     bool encontrado = false;
-    while ((pos = lineaTexto.find(';')) != string::npos)
+    while ((pos = lineaTexto.find(';')) != -1)
     {
         token = lineaTexto.substr(0, pos);
-        if (contador == 1)
+        if (contador == 3)
         {
-            if (token == CodigoBuscar)
+            if (stoi(token) == CodigoBuscar)
             {
                 encontrado = true;
             }
         }
-        if (contador == 3 && encontrado)
+        if (contador == 4 && encontrado)
         {
             cantidadTotal += stoi(token);
         }
@@ -308,6 +374,6 @@ int EncontrarCantidadLineaTexto(string lineaTexto, string CodigoBuscar)
     }
     else
     {
-        return 0; // Indica que no se encontró el código
+        return 0;
     }
 }
